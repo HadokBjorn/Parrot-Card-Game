@@ -66,7 +66,7 @@ function comparador() {
 }
 
 function virarCarta(carta){
-    carta.classList.add('virar');
+    carta.classList.toggle('virar');
     
-    console.log(carta);
+    console.log(carta.img);
 }

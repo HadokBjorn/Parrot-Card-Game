@@ -32,9 +32,7 @@ header{
 .card{
     width: 115px;
     height: 145px;
-    background: #A7E9AF;
-    border: 1px solid #99CEA8;
-    border-radius: 5px;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,14 +44,17 @@ header{
 /*--------------------------------------------*/
 
 div {
-    width: 100%;
-    height: 100%;
-    background-color: #A7E9AF;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    width: inherit;
+    height: inherit;
+    background: #A7E9AF;
+    border: 1px solid #99CEA8;
+    border-radius: 5px;
+
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     position: absolute;
     backface-visibility: hidden;
     transition: all .5s;
@@ -66,6 +67,10 @@ transform: rotateY(180deg);
 
 .virar .back {
 transform: rotateY(0deg);
+}
+
+.virar .front{
+transform: rotateY(-180deg);
 }
 /*--------------------------------------------*/
 

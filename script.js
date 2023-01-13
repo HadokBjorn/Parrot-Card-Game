@@ -1,5 +1,5 @@
 const listCards = document.querySelector('.container-cards');
-let cardClicado = ``;
+let cardsClicados = [];
 
 function addCard(){
 
@@ -66,7 +66,24 @@ function comparador() {
 }
 
 function virarCarta(carta){
-    carta.classList.toggle('virar');
+
+    carta.classList.add('virar');
+
+    cardsClicados.push(carta);
+
+    if(cardsClicados.length === 2){
+        let card1 = cardsClicados[0].children[1].children[0].getAttribute('src');
+        let card2 = cardsClicados[1].children[1].children[0].getAttribute('src');
+        if (card1 !== card2) {
+            setTimeout(function(){
+                cardsClicados[0].classList.remove('virar');
+                cardsClicados[1].classList.remove('virar');
+                cardsClicados = [];
+            },1000);
+            
+        }
+        
+    }
     
-    console.log(carta.img);
+    console.log(cardsClicados);
 }

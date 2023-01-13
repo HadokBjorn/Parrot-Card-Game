@@ -29,7 +29,7 @@ header{
     place-content: center;
     gap: 34px;
 }
-.card{
+.card, div{
     width: 115px;
     height: 145px;
     background: #A7E9AF;
@@ -39,12 +39,34 @@ header{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* margin-right: 34px; */
+    position: relative;
 }
-.card > img{
+div{
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: all .5s;
+    transform-style: preserve-3d;
+}
+.vira{
+    transform: rotateY(180deg);
+}
+
+
+/* .card:hover .back-face {
+    transform: rotateY(0deg);
+} */
+
+
+.card img{
     width: 100px;
     height: 100px;
 }
+
+
 @media screen and (max-width:600px){
     header{
         font-size: 36px;

@@ -1,9 +1,11 @@
 const listCards = document.querySelector('.container-cards');
 let cardsClicados = [];
+let jogadas = 0;
+let numCards = 0;
+let par = 0;
+
 
 function addCard(){
-
-    let numCards = 0;
     let resto = 0;
     let i = 0;
     let qtdImagens = 0;
@@ -67,6 +69,9 @@ function comparador() {
 
 function virarCarta(carta){
 
+    jogadas++;
+    console.log(jogadas);
+
     carta.classList.add('virar');
 
     cardsClicados.push(carta);
@@ -75,15 +80,30 @@ function virarCarta(carta){
         let card1 = cardsClicados[0].children[1].children[0].getAttribute('src');
         let card2 = cardsClicados[1].children[1].children[0].getAttribute('src');
         if (card1 !== card2) {
-            setTimeout(function(){
-                cardsClicados[0].classList.remove('virar');
-                cardsClicados[1].classList.remove('virar');
-                cardsClicados = [];
-            },1000);
-            
+            desvirar();
+        }
+        if (card1 === card2) {
+            cardsClicados = [];
         }
         
     }
+    verificacion()
+}
+
+function verificacion(){
+    const selecionados = document.querySelectorAll('.virar').length;
     
-    console.log(cardsClicados);
+    if (selecionados === numCards){
+        setTimeout( function (){alert(`Você ganhou em ${jogadas} jogadas!`)},1000);
+    }
+}
+
+function desvirar(){
+
+    setTimeout(function(){
+    cardsClicados[0].classList.remove('virar');
+    cardsClicados[1].classList.remove('virar');
+    cardsClicados = [];
+    },1000);
+
 }

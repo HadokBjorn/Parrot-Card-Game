@@ -48,13 +48,13 @@ dataCards = dataCards.sort(comparador);
     for (let i = 0; i < numCards; i++){
         cards += `
         <li class="card" onclick="virarCarta(this)">
-                <div class="front">
-                    <img src="./assets/back.png"/>
-                </div>
-                <div class="back">
-                    <img src="${listaEmbaralhada[i]}"/>
-                </div>
-            </li>
+            <div class="front">
+                <img src="./assets/back.png"/>
+            </div>
+            <div class="back">
+                <img src="${listaEmbaralhada[i]}"/>
+            </div>
+        </li>
         `
     }
     listCards.innerHTML += cards;
@@ -65,3 +65,8 @@ function comparador() {
 	return Math.random() - 0.5; 
 }
 
+function virarCarta(carta){
+    carta.classList.add('virar');
+    
+    console.log(carta);
+}

@@ -19,10 +19,9 @@ function addCard(){
         `./assets/tripletsparrot.gif`,
         `./assets/unicornparrot.gif`,
     ];
-// embaralhando as cartas
+
     dataCards.sort(comparador);
 
-// Pedindo para o jogador a quantidade de cartas que ele quer jogar
     while(numCards < 4 || numCards > 14 || resto!==0){
         numCards = parseInt(prompt(`
         Com quantas cartas gostaria de jogar?\n
@@ -31,32 +30,30 @@ function addCard(){
         resto = numCards % 2;
     }
 qtdImagens = numCards/2;
-//pegando as imagens
+
 let listaEmbaralhada = [];
 while (i < qtdImagens) {
     listaEmbaralhada.push(dataCards[i]);
     i++;
 }
-// embaralhando as cartas
+
 listaEmbaralhada = listaEmbaralhada.concat(listaEmbaralhada);
 listaEmbaralhada = listaEmbaralhada.sort(comparador);
 
-dataCards = dataCards.sort(comparador);
 
-//adicionando as cartas no html
 
     let cards = ``;
 
     for (let i = 0; i < numCards; i++){
         cards += `
-        <li class="card" onclick="virarCarta(this)">
+        <button class="card click" onclick="virarCarta(this)">
             <div class="front">
                 <img src="./assets/back.png"/>
             </div>
             <div class="back">
                 <img src="${listaEmbaralhada[i]}"/>
             </div>
-        </li>
+        </button>
         `
     }
     listCards.innerHTML += cards;
@@ -68,22 +65,36 @@ function comparador() {
 }
 
 function virarCarta(carta){
-
+    
     jogadas++;
-    console.log(jogadas);
 
     carta.classList.add('virar');
+    //carta.classList.remove('click');
+    blockSelectCard();
+
+    
 
     cardsClicados.push(carta);
+    cardRepeat(carta);
+    
 
     if(cardsClicados.length === 2){
+
+        blockClick();
+
         let card1 = cardsClicados[0].children[1].children[0].getAttribute('src');
         let card2 = cardsClicados[1].children[1].children[0].getAttribute('src');
+        
+
         if (card1 !== card2) {
             desvirar();
         }
+        
         if (card1 === card2) {
+            cardsClicados[0].classList.remove('click');
+            cardsClicados[1].classList.remove('click');
             cardsClicados = [];
+            activeClick()
         }
         
     }
@@ -94,16 +105,44 @@ function verificacion(){
     const selecionados = document.querySelectorAll('.virar').length;
     
     if (selecionados === numCards){
-        setTimeout( function (){alert(`Você ganhou em ${jogadas} jogadas!`)},1000);
+        setTimeout( function (){alert(`Você ganhou em ${jogadas} jogadas!`)},500);
     }
 }
 
 function desvirar(){
 
+
     setTimeout(function(){
+
     cardsClicados[0].classList.remove('virar');
     cardsClicados[1].classList.remove('virar');
     cardsClicados = [];
     },1000);
 
+    activeClick();
+
 }
+
+function blockClick(){
+    const cards = document.querySelectorAll('.click');
+        cards.forEach(card => card.disabled = true);
+}
+
+function blockSelectCard(){
+    const cardClick = document.querySelectorAll('.virar');
+    cardClick.forEach(card => card.disabled = true);
+}
+function activeClick(){
+    setTimeout(function(){
+        const cards = document.querySelectorAll('.click');
+        cards.forEach(card => card.disabled = false);
+    },1500)
+    
+}
+function cardRepeat(item){
+    if(cardsClicados[0] === cardsClicados[1]){
+        cardsClicados.pop();
+    }
+}
+
+//TODO: Implementar o Bonus.

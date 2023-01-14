@@ -39,6 +39,9 @@ header{
     justify-content: center;
     position: relative;
 
+    background: transparent;
+    border: none;
+
     
 }
 /*--------------------------------------------*/
@@ -57,7 +60,7 @@ div {
 
     position: absolute;
     backface-visibility: hidden;
-    transition: all .5s;
+    transition: all .3s;
     transform-style: preserve-3d;
 }
 

@@ -3,6 +3,8 @@ let cardsClicados = [];
 let jogadas = 0;
 let numCards = 0;
 let par = 0;
+let timer = 0;
+let timeRun = 0;
 
 
 function addCard(){
@@ -57,6 +59,9 @@ listaEmbaralhada = listaEmbaralhada.sort(comparador);
         `
     }
     listCards.innerHTML += cards;
+
+    timeRun = setInterval(time,1000);
+    console.log(timeRun);
 }
 addCard();
 
@@ -105,7 +110,12 @@ function verificacion(){
     const selecionados = document.querySelectorAll('.virar').length;
     
     if (selecionados === numCards){
-        setTimeout( function (){alert(`Você ganhou em ${jogadas} jogadas!`)},500);
+        setTimeout( function (){alert(`Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${timer-1} segundos!`);
+        reiniciarJogo()
+    },500);
+        clearInterval(timeRun)
+        
+        
     }
 }
 
@@ -136,7 +146,7 @@ function activeClick(){
     setTimeout(function(){
         const cards = document.querySelectorAll('.click');
         cards.forEach(card => card.disabled = false);
-    },1500)
+    },1100)
     
 }
 function cardRepeat(item){
@@ -145,4 +155,21 @@ function cardRepeat(item){
     }
 }
 
-//TODO: Implementar o Bonus.
+function time(){
+    const divTime = document.querySelector('.timer');
+    divTime.innerHTML = `${timer} s`;
+    timer++;
+}
+function reiniciarJogo(){
+    const reiniciar = prompt('gostaria de reiniciar a partida?');
+        if(reiniciar === 'sim'){
+            cardsClicados = [];
+            jogadas = 0;
+            numCards = 0;
+            par = 0;
+            timer = 0;
+            timeRun = 0;
+            listCards.innerHTML = '';
+            addCard();
+        }
+}

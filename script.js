@@ -27,7 +27,7 @@ function addCard(){
     while(numCards < 4 || numCards > 14 || resto!==0){
         numCards = parseInt(prompt(`
         Com quantas cartas gostaria de jogar?\n
-        Obs: min. 4 e max. 14
+        (número par entre 4 e 14)
         `));
         resto = numCards % 2;
     }
@@ -48,12 +48,12 @@ listaEmbaralhada = listaEmbaralhada.sort(comparador);
 
     for (let i = 0; i < numCards; i++){
         cards += `
-        <button class="card click" onclick="virarCarta(this)">
+        <button data-test="card" class="card click" onclick="virarCarta(this)">
             <div class="front">
-                <img src="./assets/back.png"/>
+                <img  data-test="face-down-image" src="./assets/back.png"/>
             </div>
             <div class="back">
-                <img src="${listaEmbaralhada[i]}"/>
+                <img data-test="face-up-image" src="${listaEmbaralhada[i]}"/>
             </div>
         </button>
         `
@@ -61,7 +61,6 @@ listaEmbaralhada = listaEmbaralhada.sort(comparador);
     listCards.innerHTML += cards;
 
     timeRun = setInterval(time,1000);
-    console.log(timeRun);
 }
 addCard();
 
@@ -146,7 +145,7 @@ function activeClick(){
     setTimeout(function(){
         const cards = document.querySelectorAll('.click');
         cards.forEach(card => card.disabled = false);
-    },1100)
+    },1020)
     
 }
 function cardRepeat(item){
@@ -161,15 +160,25 @@ function time(){
     timer++;
 }
 function reiniciarJogo(){
-    const reiniciar = prompt('gostaria de reiniciar a partida?');
-        if(reiniciar === 'sim'){
-            cardsClicados = [];
-            jogadas = 0;
-            numCards = 0;
-            par = 0;
-            timer = 0;
-            timeRun = 0;
-            listCards.innerHTML = '';
-            addCard();
+    let reiniciar = '';
+        while(reiniciar !== 'sim'||reiniciar !== 'não'){
+
+            reiniciar = prompt(`Gostaria de reiniciar a partida?\n responda com: sim ou não.`);
+
+            if (reiniciar === 'sim'){
+                cardsClicados = [];
+                jogadas = 0;
+                numCards = 0;
+                par = 0;
+                timer = 0;
+                timeRun = 0;
+                listCards.innerHTML = '';
+                addCard();
+                break;
+            }
+            if (reiniciar === 'não'){
+                break;
+            }
+            
         }
 }

@@ -1,4 +1,6 @@
 const listCards = document.querySelector('.container-cards');
+const divTime = document.querySelector('.timer');
+
 let cardsClicados = [];
 let jogadas = 0;
 let numCards = 0;
@@ -59,8 +61,6 @@ listaEmbaralhada = listaEmbaralhada.sort(comparador);
         `
     }
     listCards.innerHTML += cards;
-
-    timeRun = setInterval(time,1000);
 }
 addCard();
 
@@ -70,13 +70,14 @@ function comparador() {
 
 function virarCarta(carta){
     
+    if(timer===0){
+    timeRun = setInterval(time,1000);
+    }
+
     jogadas++;
 
     carta.classList.add('virar');
-    //carta.classList.remove('click');
     blockSelectCard();
-
-    
 
     cardsClicados.push(carta);
     cardRepeat(carta);
@@ -89,7 +90,6 @@ function virarCarta(carta){
         let card1 = cardsClicados[0].children[1].children[0].getAttribute('src');
         let card2 = cardsClicados[1].children[1].children[0].getAttribute('src');
         
-
         if (card1 !== card2) {
             desvirar();
         }
@@ -155,9 +155,8 @@ function cardRepeat(item){
 }
 
 function time(){
-    const divTime = document.querySelector('.timer');
-    divTime.innerHTML = `${timer} s`;
     timer++;
+    divTime.innerHTML = `${timer} s`;
 }
 function reiniciarJogo(){
     let reiniciar = '';
@@ -172,6 +171,7 @@ function reiniciarJogo(){
                 par = 0;
                 timer = 0;
                 timeRun = 0;
+                divTime.innerHTML = `00 s`;
                 listCards.innerHTML = '';
                 addCard();
                 break;
